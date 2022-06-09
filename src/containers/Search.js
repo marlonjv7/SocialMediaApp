@@ -11,7 +11,10 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
 
-//Funciones exportadas de material Ui
+
+
+const Search = () => {
+    //Funciones exportadas de material Ui
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -43,8 +46,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
 }));
 
+
 // Inicio del componente de función que pinta los avatares de los usuarios y sus publicaciones
-const Search = () => {
+
 
     const urlUser = 'https://workshop-2-ag.herokuapp.com/users'
     const urlPublicaciones = 'https://workshop-2-ag.herokuapp.com/publicaciones'

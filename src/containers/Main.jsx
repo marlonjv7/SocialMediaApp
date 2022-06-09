@@ -19,11 +19,11 @@ const Main = () => {
       <section className='d-flex justify-content-between mx-4 mt-3 gap-1'>
         <div>
           <IMG className='' src="https://i.ibb.co/jfhmjqS/Group-3.png" alt="" /><IMG2 src="https://i.ibb.co/h8KbMPT/Vector-3.png" alt="" />
-          <h2 className='fs-6 text-center'>Your Story</h2>
+          <h2 className='fs-6 text-center'>Your Story new story</h2>
         </div>
         <div>
           <IMG className='' src="https://i.ibb.co/jfhmjqS/Group-3.png" alt="" />
-          <h2 className='fs-6 text-center'>Meli Mendoza</h2>
+          <h2 className='fs-6 text-center'>Meli Mendoza A</h2>
         </div>
         <div>
           <IMG className='' src="https://i.ibb.co/jfhmjqS/Group-3.png" alt="" />

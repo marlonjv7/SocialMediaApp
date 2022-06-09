@@ -1,9 +1,64 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap';
 import NavBar from '../components/NavBar';
-import { IMG, IMG2, IMG3, SECTION, TEXT } from '../styles/StylesGlobales';
+import Get from '../helpers/get';
+import { IMG3, SECTION, TEXT } from '../styles/StylesGlobales';
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+
+
+//Funciones exportadas de material Ui
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+      backgroundColor: '#44b700',
+      color: '#44b700',
+      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      '&::after': {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          borderRadius: '50%',
+          animation: 'ripple 1.2s infinite ease-in-out',
+          border: '1px solid currentColor',
+          content: '""',
+      },
+  },
+  '@keyframes ripple': {
+      '0%': {
+          transform: 'scale(.8)',
+          opacity: 1,
+      },
+      '100%': {
+          transform: 'scale(2.4)',
+          opacity: 0,
+      },
+  },
+}));
 
 const Main = () => {
+
+  const urlUser = 'https://workshop-2-ag.herokuapp.com/users'
+    const urlPublicaciones = 'https://workshop-2-ag.herokuapp.com/publicaciones'
+
+    const [usuario, setUsuario] = useState([])
+    const [post, setPost] = useState([])
+
+
+    const cargar = async () => {
+        const resp = await Get(urlUser)
+        const respPost = await Get(urlPublicaciones)
+        setUsuario(resp)
+        setPost(respPost)
+    }
+    useEffect(() => {
+        cargar()
+    }, [])
+
   return (
     <div className='d-flex flex-column'>
       <section className='d-flex mt-3'>
@@ -16,105 +71,68 @@ const Main = () => {
         </div>
       </section>
 
-      <section className='d-flex justify-content-between mx-4 mt-3 gap-1'>
-        <div>
-          <IMG className='' src="https://i.ibb.co/jfhmjqS/Group-3.png" alt="" /><IMG2 src="https://i.ibb.co/h8KbMPT/Vector-3.png" alt="" />
-          <h2 className='fs-6 text-center'>Your Story new story</h2>
-        </div>
-        <div>
-          <IMG className='' src="https://i.ibb.co/jfhmjqS/Group-3.png" alt="" />
-          <h2 className='fs-6 text-center'>Meli Mendoza A</h2>
-        </div>
-        <div>
-          <IMG className='' src="https://i.ibb.co/jfhmjqS/Group-3.png" alt="" />
-          <h2 className='fs-6 text-center'>Meli Mendoza</h2>
-        </div>
-        <div>
-          <IMG className='' src="https://i.ibb.co/jfhmjqS/Group-3.png" alt="" />
-          <h2 className='fs-6 text-center'>Meli Mendoza</h2>
-        </div>
-        <div>
-          <IMG className='' src="https://i.ibb.co/jfhmjqS/Group-3.png" alt="" />
-          <h2 className='fs-6 text-center'>Meli Mendoza</h2>
-        </div>
-      </section>
+      <Stack direction="row" sx={{diplay:'flex', justifyContent: 'space-evenly', marginTop:'1em'}}>
+                {
+                    usuario && usuario.length > 0 ? (
+                        usuario.map(item => (
+                            <StyledBadge key={item.id}
+                                overlap="circular"
+                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                variant="dot"
+                            >
+                                <Avatar alt="Remy Sharp" src={item.photo} />
+                            </StyledBadge>
+                        ))
+                    ) : <>Loading...</>
+                }
+            </Stack>
 
       <div>
-        <SECTION className='mx-auto d-flex flex-column p-3 mb-3'>
-          <div className='d-flex ms-2'>
-            <IMG3 src="https://i.ibb.co/xzw46k1/Group-11.png" alt="" />
-            <h2 className='fs-5 ms-2'>Whitney Stevenson</h2>
-          </div>
-          <div className=''>
-            <TEXT className='' >
-              <Card.Img variant="top" src="https://i.ibb.co/xzw46k1/Group-11.png" />
-              <Card.Body>
-                <div className='d-flex gap-3'>
-                  <div className='d-block'>
-                    <img className='mx-1' src="https://i.ibb.co/MBcBqxd/Vector.png" alt="" />
-                    <h2 className='fs-6'>300K</h2>
+        {
+          post && post.length > 0 ? (
+            post.map((item) => {
+              const userPost = usuario.find(u=> u.id === item.idUser)
+              return (
+                <SECTION className='mx-auto d-flex flex-column p-3 mb-3' key={item.id}>
+                  <div className='d-flex ms-2'>
+                    <IMG3 src={userPost ? userPost.photo: "userX"} alt="" />
+                    <h2 className='fs-5 ms-2'>{userPost ? userPost.name: "userX"}</h2>
                   </div>
-                  <div className='d-block'>
-                    <img className='' src="https://i.ibb.co/JrX80Zh/Vector-4.png" alt="" />
-                    <h2 className='fs-6'>87K</h2>
+                  <div className=''>
+                    <TEXT className='' >
+                      <Card.Img variant="top" src={item.image} />
+                      <Card.Body>
+                        <div className='d-flex gap-3'>
+                          <div className='d-block'>
+                            <img className='mx-1' src="https://i.ibb.co/MBcBqxd/Vector.png" alt="" />
+                            <h2 className='fs-6'>300K</h2>
+                          </div>
+                          <div className='d-block'>
+                            <img className='' src="https://i.ibb.co/JrX80Zh/Vector-4.png" alt="" />
+                            <h2 className='fs-6'>87K</h2>
+                          </div>
+                          <div className='d-block'>
+                            <img className='' src="https://i.ibb.co/QPPWMhF/Vector-5.png" alt="" />
+                            <h2 className='fs-6'>10K</h2>
+                          </div>
+                          <div className='d-block ms-auto'>
+                            <img className='mx-1' src="https://i.ibb.co/sqf9Lhs/Vector-11.png" alt="" />
+                            <h2 className='fs-6'>10K</h2>
+                          </div>
+                        </div>
+                        <TEXT.Text>
+                          <span className='fs-2'>{userPost ? userPost.name: "userX"}</span>
+                          <p>{item.comentario}</p>
+                        </TEXT.Text>
+                      </Card.Body>
+                    </TEXT>
                   </div>
-                  <div className='d-block'>
-                    <img className='' src="https://i.ibb.co/QPPWMhF/Vector-5.png" alt="" />
-                    <h2 className='fs-6'>10K</h2>
-                  </div>
-                  <div className='d-block ms-auto'>
-                    <img className='mx-1' src="https://i.ibb.co/sqf9Lhs/Vector-11.png" alt="" />
-                    <h2 className='fs-6'>10K</h2>
-                  </div>
-                </div>
-                <TEXT.Text>
-                  <span className='fs-2'>Jennie Kim</span> Lorem ipsum dolor sit amet, consectetur adipiscing
-                  elit. Facilisi ullamcorper aliquam augue fermentum, vel, risus, adipiscing.
-                  Tellus vestibulum magnis ut elit, vitae mattis sapien. Laoreet nam....
-                </TEXT.Text>
-              </Card.Body>
-            </TEXT>
-          </div>
-        </SECTION>
-
-        <SECTION className='mx-auto d-flex flex-column p-3 mb-3'>
-          <div className='d-flex ms-2'>
-            <IMG3 src="https://i.ibb.co/xzw46k1/Group-11.png" alt="" />
-            <h2 className='fs-5 ms-2'>Whitney Stevenson</h2>
-          </div>
-          <div className=''>
-            <TEXT className='' >
-              <Card.Img variant="top" src="https://i.ibb.co/xzw46k1/Group-11.png" />
-              <Card.Body>
-                <div className='d-flex gap-3'>
-                  <div className='d-block'>
-                    <img className='mx-1' src="https://i.ibb.co/MBcBqxd/Vector.png" alt="" />
-                    <h2 className='fs-6'>300K</h2>
-                  </div>
-                  <div className='d-block'>
-                    <img className='' src="https://i.ibb.co/JrX80Zh/Vector-4.png" alt="" />
-                    <h2 className='fs-6'>87K</h2>
-                  </div>
-                  <div className='d-block'>
-                    <img className='' src="https://i.ibb.co/QPPWMhF/Vector-5.png" alt="" />
-                    <h2 className='fs-6'>10K</h2>
-                  </div>
-                  <div className='d-block ms-auto'>
-                    <img className='mx-1' src="https://i.ibb.co/sqf9Lhs/Vector-11.png" alt="" />
-                    <h2 className='fs-6'>10K</h2>
-                  </div>
-                </div>
-                <TEXT.Text>
-                  <span className='fs-2'>Jennie Kim</span> Lorem ipsum dolor sit amet, consectetur adipiscing
-                  elit. Facilisi ullamcorper aliquam augue fermentum, vel, risus, adipiscing.
-                  Tellus vestibulum magnis ut elit, vitae mattis sapien. Laoreet nam....
-                </TEXT.Text>
-              </Card.Body>
-            </TEXT>
-          </div>
-        </SECTION>
+                </SECTION>
+              )
+            })
+          ) : <>Loading...</>
+        }
       </div>
-
 
       <NavBar />
     </div>

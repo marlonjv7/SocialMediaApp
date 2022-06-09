@@ -26,6 +26,8 @@ export const Login = () => {
       const userInit= user.filter(u => u.email == values)
       console.log (userInit)
       console.log (values)
+      const infoUser=login.filter(p => p.idUser== userInit.id)
+      console.log (infoUser)
      
   return (
       <div style={{ textAlign: "center" }}>

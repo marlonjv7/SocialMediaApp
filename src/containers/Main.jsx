@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import NavBar from '../components/NavBar';
 import { IMG, IMG2, IMG3, SECTION, TEXT } from '../styles/StylesGlobales';
 

@@ -67,3 +67,23 @@ export const TEXT = styled(Card)`
 text-align: justify;
 border: none !important;
 `
+
+
+
+
+export const NavTop = styled.header`
+    position: absolute;
+    top: 25px;
+    left: 25px;
+`
+
+export const ImgNavT = styled.img`
+    width: 12px;
+    height: 20px; 
+
+    &:hover {
+        cursor: pointer;
+        width: 15px;
+        height: 26px; 
+    }
+`

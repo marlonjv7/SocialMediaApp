@@ -23,7 +23,7 @@ const Main = () => {
         </div>
         <div>
           <IMG className='' src="https://i.ibb.co/jfhmjqS/Group-3.png" alt="" />
-          <h2 className='fs-6 text-center'>Meli Mendoza</h2>
+          <h2 className='fs-6 text-center'>Meli Mendoza A</h2>
         </div>
         <div>
           <IMG className='' src="https://i.ibb.co/jfhmjqS/Group-3.png" alt="" />

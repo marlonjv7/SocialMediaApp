@@ -9,6 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import NavBarTop from '../components/NavBarTop';
 
 
 
@@ -68,8 +69,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     }, [])
 
     return (
-        <div>
-            <Stack direction="row" spacing={2}>
+        <div className='mt-5'>
+            <NavBarTop />
+            <Stack className='mt-5' direction="row" spacing={2}>
                 {
                     usuario && usuario.length > 0 ? (
                         usuario.map(item => (
@@ -106,6 +108,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
+                            
                         ))
                     ) : <>Loading...</>
                 }

@@ -30,7 +30,7 @@ export const Login = () => {
       console.log (infoUser)
      
   return (
-      <div style={{ textAlign: "center" }}>
+      <div className='h-100' style={{ textAlign: "center" }}>
           <img src="https://res.cloudinary.com/estudiante-geek/image/upload/v1654804837/LOGOLOGO_3_kfjjph.png" />
           <h1 style={{ color: "#EB5E5C" }}>Create account</h1>
           <Form style={{ width: "50vw", marginLeft: "25vw" }}>

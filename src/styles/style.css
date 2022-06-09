@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-#root {
+body {
     background: radial-gradient(50% 50% at 50% 50%, rgba(255, 118, 116, 0.3) 0%, rgba(255, 118, 116, 0) 100%);
     background-color: #F8F8F8;
 }

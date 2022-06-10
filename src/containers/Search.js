@@ -10,6 +10,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import NavBarTop from '../components/NavBarTop';
+import NavBar from '../components/NavBar';
+
 
 
 
@@ -113,6 +115,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
                     ) : <>Loading...</>
                 }
             </div>
+            <NavBar />
         </div>
     )
 }

@@ -71,7 +71,7 @@ const Main = () => {
         </div>
       </section>
 
-      <Stack direction="row" sx={{ diplay: 'flex', justifyContent: 'space-evenly', marginTop: '1em' }}>
+      <Stack className='mb-5' direction="row" sx={{ diplay: 'flex', justifyContent: 'space-evenly', marginTop: '1em' }}>
         {
           usuario && usuario.length > 0 ? (
             usuario.map(item => (

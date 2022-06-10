@@ -13,51 +13,51 @@ import Stack from '@mui/material/Stack';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
-      backgroundColor: '#44b700',
-      color: '#44b700',
-      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-      '&::after': {
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          borderRadius: '50%',
-          animation: 'ripple 1.2s infinite ease-in-out',
-          border: '1px solid currentColor',
-          content: '""',
-      },
+    backgroundColor: '#44b700',
+    color: '#44b700',
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    '&::after': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: 'ripple 1.2s infinite ease-in-out',
+      border: '1px solid currentColor',
+      content: '""',
+    },
   },
   '@keyframes ripple': {
-      '0%': {
-          transform: 'scale(.8)',
-          opacity: 1,
-      },
-      '100%': {
-          transform: 'scale(2.4)',
-          opacity: 0,
-      },
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0,
+    },
   },
 }));
 
 const Main = () => {
 
   const urlUser = 'https://workshop-2-ag.herokuapp.com/users'
-    const urlPublicaciones = 'https://workshop-2-ag.herokuapp.com/publicaciones'
+  const urlPublicaciones = 'https://workshop-2-ag.herokuapp.com/publicaciones'
 
-    const [usuario, setUsuario] = useState([])
-    const [post, setPost] = useState([])
+  const [usuario, setUsuario] = useState([])
+  const [post, setPost] = useState([])
 
 
-    const cargar = async () => {
-        const resp = await Get(urlUser)
-        const respPost = await Get(urlPublicaciones)
-        setUsuario(resp)
-        setPost(respPost)
-    }
-    useEffect(() => {
-        cargar()
-    }, [])
+  const cargar = async () => {
+    const resp = await Get(urlUser)
+    const respPost = await Get(urlPublicaciones)
+    setUsuario(resp)
+    setPost(respPost)
+  }
+  useEffect(() => {
+    cargar()
+  }, [])
 
   return (
     <div className='d-flex flex-column'>
@@ -71,32 +71,32 @@ const Main = () => {
         </div>
       </section>
 
-      <Stack direction="row" sx={{diplay:'flex', justifyContent: 'space-evenly', marginTop:'1em'}}>
-                {
-                    usuario && usuario.length > 0 ? (
-                        usuario.map(item => (
-                            <StyledBadge key={item.id}
-                                overlap="circular"
-                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                                variant="dot"
-                            >
-                                <Avatar alt="Remy Sharp" src={item.photo} />
-                            </StyledBadge>
-                        ))
-                    ) : <>Loading...</>
-                }
-            </Stack>
+      <Stack className='mb-5' direction="row" sx={{ diplay: 'flex', justifyContent: 'space-evenly', marginTop: '1em' }}>
+        {
+          usuario && usuario.length > 0 ? (
+            usuario.map(item => (
+              <StyledBadge key={item.id}
+                overlap="circular"
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                variant="dot"
+              >
+                <Avatar alt="Remy Sharp" src={item.photo} />
+              </StyledBadge>
+            ))
+          ) : <>Loading...</>
+        }
+      </Stack>
 
       <div>
         {
           post && post.length > 0 ? (
             post.map((item) => {
-              const userPost = usuario.find(u=> u.id === item.idUser)
+              const userPost = usuario.find(u => u.id === item.idUser)
               return (
                 <SECTION className='mx-auto d-flex flex-column p-3 mb-3' key={item.id}>
                   <div className='d-flex ms-2'>
-                    <IMG3 src={userPost ? userPost.photo: "userX"} alt="" />
-                    <h2 className='fs-5 ms-2'>{userPost ? userPost.name: "userX"}</h2>
+                    <IMG3 src={userPost ? userPost.photo : "userX"} alt="" />
+                    <h2 className='fs-5 ms-2'>{userPost ? userPost.name : "userX"}</h2>
                   </div>
                   <div className=''>
                     <TEXT className='' >
@@ -121,8 +121,8 @@ const Main = () => {
                           </div>
                         </div>
                         <TEXT.Text>
-                          <span className='fs-2'>{userPost ? userPost.name: "userX"}</span>
-                          <p>{item.comentario}</p>
+                          <p><span className='fs-2'>{userPost ? userPost.name : "userX"}
+                          </span> {item.comentario}</p>
                         </TEXT.Text>
                       </Card.Body>
                     </TEXT>
@@ -133,7 +133,6 @@ const Main = () => {
           ) : <>Loading...</>
         }
       </div>
-
       <NavBar />
     </div>
   )
